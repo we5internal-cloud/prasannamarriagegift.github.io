@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>From We 5 💛</title>
+
+<style>
+body {
+  height: 100vh;
+  background: #fff4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 17px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background-color: #ff4d88;
+  color: white;
+}
+
+#noBtn {
+  background-color: #ddd;
+  position: absolute;
+}
+
+audio {
+  margin-top: 20px;
+}
+
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("background.jpg") no-repeat center center / cover;
+  filter: blur(12px);
+  transform: scale(1.1); /* avoids edges showing after blur */
+  z-index: -1;
+}
+
+</style>
+</head>
+
+<body>
+<div class="background"></div>
+
+<div class="container" id="content"></div>
+
+<script>
+const questions = [
+  "Do you promise to keep him smiling forever?",
+  "Will you tolerate his bad jokes?",
+  "Will you still love him when he steals your food?",
+  "Do you promise not to get annoyed at least… sometimes? 😄",
+  "Do you promise to keep this married life fun?",
+  "Will you survive his habits without complaining too much?"
+];
+
+let index = 0;
+
+/* ---------- INITIAL NOTE ---------- */
+showIntro();
+
+function showIntro() {
+  document.getElementById("content").innerHTML = `
+    <h2>Hey 😄</h2>
+    <p>
+      This is from your friends.<br>
+      Nothing serious.<br><br>
+      Just a few fun questions<br>
+      before we let you go 😊
+    </p>
+    <br>
+    <button id="yesBtn" onclick="startQuestions()">Start ➡️</button>
+  `;
+}
+
+/* ---------- QUESTIONS ---------- */
+function startQuestions() {
+  index = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  document.getElementById("content").innerHTML = `
+    <h2 id="question">${questions[index]}</h2>
+    <br><br>
+    <button id="yesBtn" onclick="nextQuestion()">Yes 😄</button>
+    <button id="noBtn" onmouseover="moveNo()">No 🙈</button>
+  `;
+}
+
+function nextQuestion() {
+  index++;
+  if (index < questions.length) {
+    document.getElementById("question").innerText = questions[index];
+  } else {
+    showAudio();
+  }
+}
+
+function moveNo() {
+  const btn = document.getElementById("noBtn");
+  btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+/* ---------- AUDIO + FINAL NOTE ---------- */
+
+/* ---------- AUDIO + FINAL NOTE ---------- */
+
+function showAudio() {
+  document.body.innerHTML = `
+    <div class="container">
+      <h2>Okay 😄 That’s it.</h2>
+      <p>Just one last thing for you…</p>
+
+      <audio id="friendsAudio" controls>
+        <source src="friends-message.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+      </audio>
+
+      <p style="margin-top:25px;font-size:15px;">
+        <strong>Just a small note 💛</strong><br><br>
+        No matter how days turn — good, bad, busy or tired —<br>
+        remember that you’re never alone.<br><br>
+        This is from <strong>We 5</strong> —<br>
+        always with you… and yes, you’re part of us too 😄
+      </p>
+
+      <p style="margin-top:20px;">
+        <button id="yesBtn" onclick="openPhotos()">View Photos 📸 </button>
+      </p>
+    </div>
+  `;
+
+  // Trigger playback after user interaction
+  const audio = document.getElementById("friendsAudio");
+  audio.play().catch(err => {
+    console.log("Autoplay blocked, user must press play:", err);
+  });
+}
+
+function openPhotos(){
+window.location.href="photos.html";
+}
+
+</script>
+
+</body>
+</html>
